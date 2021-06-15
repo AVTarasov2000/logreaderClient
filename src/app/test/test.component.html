@@ -2,12 +2,14 @@
 <!--<textarea style="width: 70px; height: 100px"></textarea>\-->
 <!--<button (click)="click_test()">test</button>-->
 <div class="container">
-  <div class="row g-5">
+<!--  <div class="row g-5">-->
+  <div class="position-absolute" style= "top:2%; left:5%; width: 100%;">
     <div class="col-md-7 col-lg-8">
       <div class="container-fluid pb-3" *ngFor="let i of messages">
         <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
           <div class="bg-light border rounded-3">
-            {{i.message}}
+<!--            <p class="text-left tooltip-inner">{{i.message}}</p>-->
+            <div [innerHTML]="i.message"></div>
           </div>
         </div>
       </div>
@@ -34,7 +36,7 @@
           <div>
             <form class="p-2">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Date from" [(ngModel)]="dateFrom" required name="dateFrom">
+                <input type="date" class="form-control" placeholder="Date from" [(ngModel)]="dateFrom" required name="dateFrom">
                 <button type="submit" class="btn btn-secondary"  (click)="search()">Search</button>
               </div>
             </form>
@@ -44,7 +46,7 @@
           <div>
             <form class="p-2">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Date to" [(ngModel)]="dateTo" required name="dateTo">
+                <input type="date" class="form-control" placeholder="Date to" [(ngModel)]="dateTo" required name="dateTo">
                 <button type="submit" class="btn btn-secondary"  (click)="search()">Search</button>
               </div>
             </form>
