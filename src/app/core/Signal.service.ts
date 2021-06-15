@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Message} from "./message.interface";
 import {Observable} from "rxjs";
+import {SearchData} from "./searchData";
 
 @Injectable()
 export class SignalService{
@@ -19,6 +20,9 @@ export class SignalService{
     return this.http.get<Message>(this.setUrl("test"))
   }
 
+  search(searchData: SearchData): Observable<any> {
+    return this.http.post(this.setUrl("search"), searchData)
+  }
 }
 
 

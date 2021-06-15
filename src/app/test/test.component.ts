@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SignalService} from "../core/Signal.service";
+import {Message} from "../core/message.interface";
 
 
 @Component({
@@ -8,6 +9,11 @@ import {SignalService} from "../core/Signal.service";
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
+  MsgId: any = "";
+  dateFrom: any = "";
+  dateTo: any = "";
+  messages: Message[] = [];
+  count: number = 0
 
   constructor(
     private signal: SignalService
@@ -22,6 +28,15 @@ export class TestComponent implements OnInit {
       console.log(value)
     }, error => {})
     console.log("test")
+  }
+
+  async search(){
+    this.signal.search({msgId: this.MsgId, dateFrom: this.dateFrom, dateTo: this.dateTo}).subscribe(
+      value => {
+        this.messages = value['result'];
+        this.count = value['count'];
+      }
+    )
   }
 
 }
