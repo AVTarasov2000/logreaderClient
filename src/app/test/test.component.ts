@@ -39,4 +39,13 @@ export class TestComponent implements OnInit {
     )
   }
 
+
+
+  setMinDate() {
+
+  }
+
+  setMaxDate() {
+
+  }
 }
