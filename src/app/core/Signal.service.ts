@@ -4,6 +4,7 @@ import {Message} from "./message.interface";
 import {Observable} from "rxjs";
 import {SearchData} from "./searchData";
 import {TreeNode} from "./treeNode";
+import {SearchingField} from "./searchingField";
 
 @Injectable()
 export class SignalService{
@@ -25,6 +26,9 @@ export class SignalService{
     return this.http.post(this.setUrl("search"), searchData)
   }
 
+  searchByArgs(searchArgs: SearchingField[]): Observable<any> {
+    return this.http.post(this.setUrl("search/by/args"), {"args": searchArgs})
+  }
   get_tree(): Observable<TreeNode> {
     return this.http.get<TreeNode>(this.setUrl("getTree"))
   }

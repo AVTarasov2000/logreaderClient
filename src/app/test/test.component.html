@@ -22,7 +22,7 @@
         <span class="badge bg-primary rounded-pill">{{count}}</span>
       </h4>
 
-      <form [formGroup]="searchFields" (ngSubmit)="search(searchFields.value)">
+      <form [formGroup]="searchFields" (ngSubmit)="search()">
         <ul class="list-group mb-3" *ngFor="let field of controls; let i = index">
           <div formArrayName="fields">
             <li class="list-group-item d-flex justify-content-between lh-sm">

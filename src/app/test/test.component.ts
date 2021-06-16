@@ -48,8 +48,11 @@ export class TestComponent implements OnInit {
   }
 
 
-  async search(value: any){
-    console.log(value);
+  async search(){
+    for (let i in this.controls){
+      this.searchingFields[i].value = this.controls[i].value;
+    }
+    this.signal.searchByArgs(this.searchingFields).subscribe(value => {});
     this.signal.search({msgId: this.MsgId, dateFrom: this.dateFrom, dateTo: this.dateTo}).subscribe(
       value => {
         this.messages = value['result'];
