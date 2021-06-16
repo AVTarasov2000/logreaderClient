@@ -39,6 +39,11 @@ export class TestComponent implements OnInit {
     )
   }
 
+  async getTree(){
+    this.signal.get_tree().subscribe(value => {
+      console.log(value)})
+  }
+
 
 
   setMinDate() {

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {NodeClickEvent} from "@progress/kendo-angular-treeview";
+import {SignalService} from "../core/Signal.service";
+import {TreeNode} from "../core/treeNode";
 
 
 @Component({
@@ -7,32 +9,20 @@ import {NodeClickEvent} from "@progress/kendo-angular-treeview";
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.css'],
 })
-export class TreeComponent{
+export class TreeComponent implements OnInit{
 
-  public data: any[] = [
-    {
-      text: "Furniture",
-      items: [
-        { text: "Tables & Chairs" },
-        { text: "Sofas" },
-        { text: "Occasional Furniture", items: [
-            { text: "Tables & Chairs" },
-            { text: "Sofas" },
-            { text: "Occasional Furniture" },
-          ], },
-      ],
-    },
-    {
-      text: "Decor",
-      items: [
-        { text: "Bed Linen" },
-        { text: "Curtains & Blinds" },
-        { text: "Carpets" },
-      ],
-    },
-  ];
+
+  constructor(public signal: SignalService) {
+  }
+
+  public data: TreeNode[] = [];
 
   log($event: NodeClickEvent) {
     console.log($event)
+  }
+
+  ngOnInit(): void {
+    this.signal.get_tree().subscribe(value => {
+      this.data = [value]})
   }
 }

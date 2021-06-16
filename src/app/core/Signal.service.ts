@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Message} from "./message.interface";
 import {Observable} from "rxjs";
 import {SearchData} from "./searchData";
+import {TreeNode} from "./treeNode";
 
 @Injectable()
 export class SignalService{
@@ -22,6 +23,10 @@ export class SignalService{
 
   search(searchData: SearchData): Observable<any> {
     return this.http.post(this.setUrl("search"), searchData)
+  }
+
+  get_tree(): Observable<TreeNode> {
+    return this.http.get<TreeNode>(this.setUrl("getTree"))
   }
 }
 
