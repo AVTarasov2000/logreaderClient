@@ -3,8 +3,9 @@ import {SignalService} from "../core/Signal.service";
 import {Message} from "../core/message.interface";
 import {SearchService} from "../core/search.service";
 import {SearchingField} from "../core/searchingField";
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {distinctUntilChanged} from "rxjs/operators";
 
 
 @Component({
@@ -20,6 +21,7 @@ export class TestComponent implements OnInit {
   messages: Message[] = [];
   count: number = 0
 
+  controls: FormControl[] = [];
   searchFields: FormGroup;
   subscription = new Subscription();
   searchingFields: SearchingField[] = [];
@@ -30,17 +32,12 @@ export class TestComponent implements OnInit {
   ) {
     this.searchFields = new FormGroup(
       {
-        "fields":new FormArray([])
+        "fields":new FormArray(this.controls)
       }
     );
     this.subscription.add(this.searchService.searchingFields$.subscribe(
       (data: SearchingField) => {
-        let fk = new FormControl(data.name,Validators.compose([
-          Validators.required,
-          Validators.pattern('.*')
-        ]));
-        (<FormArray>this.searchFields.controls["fields"]).push(fk);
-
+        (<FormArray>this.searchFields.controls["fields"]).push(new FormControl(null, Validators.required));
         this.searchingFields.push(data);
       }
     ));
@@ -51,20 +48,14 @@ export class TestComponent implements OnInit {
   }
 
 
-  async search(){
+  async search(value: any){
+    console.log(value);
     this.signal.search({msgId: this.MsgId, dateFrom: this.dateFrom, dateTo: this.dateTo}).subscribe(
       value => {
         this.messages = value['result'];
         this.count = value['count'];
       }
     )
-  }
-
-  async test(){
-    for(let i of (<FormArray>this.searchFields.controls["fields"]).value){
-      console.log(i)
-    }
-    console.log(this.searchFields);
   }
 
 

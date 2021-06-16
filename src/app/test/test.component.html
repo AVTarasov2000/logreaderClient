@@ -22,26 +22,28 @@
         <span class="badge bg-primary rounded-pill">{{count}}</span>
       </h4>
 
-
-      <form [formGroup]="searchFields" novalidate>
-        <ul class="list-group mb-3" *ngFor="let field of searchFields.controls['fields'].value ;let i = index">
+      <form [formGroup]="searchFields" (ngSubmit)="search(searchFields.value)">
+        <ul class="list-group mb-3" *ngFor="let field of controls; let i = index">
           <div formArrayName="fields">
-            <li class="list-group-item d-flex justify-content-between lh-sm form-group">
+            <li class="list-group-item d-flex justify-content-between lh-sm">
               <form class="p-2">
                 <div class="input-group">
-                  <input type="{{searchingFields[i].type}}" class="form-control" placeholder="{{searchingFields[i].name}}" formControlName="{{i}}">
+                  <input  type="{{searchingFields[i].type}}" placeholder="{{searchingFields[i].name}}" [formControl]="controls[i]">
                   <button type="submit" class="btn btn-secondary"  (click)="deleteField(i)">delete</button>
                 </div>
               </form>
             </li>
           </div>
         </ul>
-      </form>
-      <form class="card p-2">
         <div class="input-group">
-          <button type="submit" class="btn btn-secondary" (click)="test()">Search by all</button>
+          <button type="submit" class="btn btn-secondary">Search by all</button>
         </div>
       </form>
+<!--      <form class="card p-2">-->
+<!--        <div class="input-group">-->
+<!--          <button type="submit" class="btn btn-secondary" (click)="test()">Search by all</button>-->
+<!--        </div>-->
+<!--      </form>-->
 
       <div class="card p-2">
         <app-tree></app-tree>
