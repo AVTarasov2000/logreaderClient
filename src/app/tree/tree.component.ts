@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NodeClickEvent} from "@progress/kendo-angular-treeview";
 import {SignalService} from "../core/Signal.service";
 import {TreeNode} from "../core/treeNode";
+import {SearchService} from "../core/search.service";
 
 
 @Component({
@@ -12,17 +13,24 @@ import {TreeNode} from "../core/treeNode";
 export class TreeComponent implements OnInit{
 
 
-  constructor(public signal: SignalService) {
+  constructor(
+    public signal: SignalService,
+    public search: SearchService ) {
   }
 
   public data: TreeNode[] = [];
 
-  log($event: NodeClickEvent) {
-    console.log($event)
-  }
-
   ngOnInit(): void {
     this.signal.get_tree().subscribe(value => {
       this.data = [value]})
+  }
+
+  choseField($event: NodeClickEvent) {
+    this.search.addSearchingField({
+      name: $event.item?.dataItem.text,
+      type: $event.item?.dataItem.type,
+      path: $event.item?.dataItem.text,
+      value: ""
+    });
   }
 }
