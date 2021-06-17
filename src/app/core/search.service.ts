@@ -5,15 +5,6 @@ import {Subject} from "rxjs";
 @Injectable({providedIn:"root"})
 export class SearchService{
 
-  private _searchingFields: SearchingField[] = [
-    {
-      name: "MsgId",
-      path: "MsgId",
-      type: "test",
-      value: ""
-    }
-  ];
-
   private searchingFields = new Subject<SearchingField>();
   public searchingFields$ = this.searchingFields.asObservable();
 

@@ -6,6 +6,7 @@ import {SearchingField} from "../core/searchingField";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {distinctUntilChanged} from "rxjs/operators";
+import {SearchingObject, SearchingText, SearchingDate} from "../core/searchObject";
 
 
 @Component({
@@ -14,9 +15,6 @@ import {distinctUntilChanged} from "rxjs/operators";
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
-  MsgId: any = "";
-  dateFrom: any = "";
-  dateTo: any = "";
 
   messages: Message[] = [];
   count: number = 0
@@ -25,6 +23,7 @@ export class TestComponent implements OnInit {
   searchFields: FormGroup;
   subscription = new Subscription();
   searchingFields: SearchingField[] = [];
+  searchData: SearchingObject[] = [];
 
   constructor(
     private signal: SignalService,
@@ -37,8 +36,32 @@ export class TestComponent implements OnInit {
     );
     this.subscription.add(this.searchService.searchingFields$.subscribe(
       (data: SearchingField) => {
-        (<FormArray>this.searchFields.controls["fields"]).push(new FormControl(null, Validators.required));
-        this.searchingFields.push(data);
+        if(data.type == "date") {
+          let fkFrom = new FormControl(null, Validators.required);
+          let fkTo = new FormControl(null, Validators.required);
+          this.searchData.push(new SearchingDate(data, fkFrom, fkTo));
+          (<FormArray>this.searchFields.controls["fields"]).push(fkFrom);
+          this.searchingFields.push({
+            name: data.name+" from",
+            type: data.type,
+            path: data.path,
+            value: data.value
+          });
+
+          (<FormArray>this.searchFields.controls["fields"]).push(fkTo);
+          this.searchingFields.push({
+            name: data.name+" to",
+            type: data.type,
+            path: data.path,
+            value: data.value
+          });
+        }
+        else {
+          let fk = new FormControl(null, Validators.required);
+          this.searchData.push(new SearchingText(data, fk));
+          (<FormArray>this.searchFields.controls["fields"]).push(fk);
+          this.searchingFields.push(data);
+        }
       }
     ));
   }
@@ -51,14 +74,22 @@ export class TestComponent implements OnInit {
   async search(){
     for (let i in this.controls){
       this.searchingFields[i].value = this.controls[i].value;
+      console.log(this.searchingFields[i].value)
     }
-    this.signal.searchByArgs(this.searchingFields).subscribe(value => {});
-    this.signal.search({msgId: this.MsgId, dateFrom: this.dateFrom, dateTo: this.dateTo}).subscribe(
-      value => {
-        this.messages = value['result'];
-        this.count = value['count'];
-      }
-    )
+    const res: string[] = [];
+    for (const searchDataKey of this.searchData) {
+      res.push(searchDataKey.getSearchingData())
+    }
+    this.signal.searchByQueries(res).subscribe(value => {
+      this.messages = value['result'];
+      this.count = value['count'];
+    });
+    // this.signal.search({msgId: '', dateFrom: '', dateTo: ''}).subscribe(
+    //   value => {
+    //     this.messages = value['result'];
+    //     this.count = value['count'];
+    //   }
+    // )
   }
 
 

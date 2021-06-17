@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Message} from "./message.interface";
 import {Observable} from "rxjs";
-import {SearchData} from "./searchData";
 import {TreeNode} from "./treeNode";
 import {SearchingField} from "./searchingField";
 
@@ -22,12 +21,12 @@ export class SignalService{
     return this.http.get<Message>(this.setUrl("test"))
   }
 
-  search(searchData: SearchData): Observable<any> {
+  search(searchData: any): Observable<any> {
     return this.http.post(this.setUrl("search"), searchData)
   }
 
-  searchByArgs(searchArgs: SearchingField[]): Observable<any> {
-    return this.http.post(this.setUrl("search/by/args"), {"args": searchArgs})
+  searchByQueries(searchArgs: string[]): Observable<any> {
+    return this.http.post(this.setUrl("search/by/args"), {"queries": searchArgs})
   }
   get_tree(): Observable<TreeNode> {
     return this.http.get<TreeNode>(this.setUrl("getTree"))
