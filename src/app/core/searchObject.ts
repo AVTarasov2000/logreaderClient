@@ -25,7 +25,7 @@ export class SearchingText extends SearchingObject{
     if (!value){
       value = "*"
     }
-    return " " + this.fieldData.path + ":" + value + " ";
+    return " " + this.fieldData.path + ": \"" + value + "\" ";
   }
 
   getControls(): FormControl[] {
