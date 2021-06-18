@@ -3,5 +3,5 @@ export interface SearchingField{
   path: string;
   type: string;
   value: string;
-  controlIndex: number;
+  // controlIndex: number;
 }

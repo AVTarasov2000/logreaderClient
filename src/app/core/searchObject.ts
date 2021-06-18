@@ -4,6 +4,9 @@ import {FormControl} from "@angular/forms";
 export abstract class SearchingObject{
 
   abstract getSearchingData(): string;
+  abstract getControls(): FormControl[];
+  abstract getLabels(): string[];
+  abstract getType(): string;
 }
 
 export class SearchingText extends SearchingObject{
@@ -24,6 +27,20 @@ export class SearchingText extends SearchingObject{
     }
     return " " + this.fieldData.path + ":" + value + " ";
   }
+
+  getControls(): FormControl[] {
+    return [this.control];
+  }
+
+  getLabels(): string[] {
+    return [this.fieldData.name];
+  }
+
+  getType(): string {
+    return this.fieldData.type;
+  }
+
+
 }
 
 export class SearchingDate extends SearchingObject{
@@ -52,6 +69,16 @@ export class SearchingDate extends SearchingObject{
     return " " + this.fieldData.path + ":[" + valueFrom + " TO " + valueTo + "] ";
   }
 
+  getControls(): FormControl[] {
+    return [this.controlDateFrom, this.controlDateTo];
+  }
 
+  getLabels(): string[] {
+    return [this.fieldData.name+" From", this.fieldData.name+" To"];
+  }
+
+  getType(): string {
+    return this.fieldData.type;
+  }
 
 }

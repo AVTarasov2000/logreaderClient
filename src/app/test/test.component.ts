@@ -19,7 +19,7 @@ export class TestComponent implements OnInit {
   messages: Message[] = [];
   count: number = 0
 
-  controls: FormControl[] = [];
+  // controls: FormControl[] = [];
   searchFields: FormGroup;
   subscription = new Subscription();
   searchingFields: SearchingField[] = [];
@@ -31,7 +31,8 @@ export class TestComponent implements OnInit {
   ) {
     this.searchFields = new FormGroup(
       {
-        "fields":new FormArray(this.controls)
+        // "fields":new FormArray(this.controls)
+        "fields":new FormArray([])
       }
     );
     this.subscription.add(this.searchService.searchingFields$.subscribe(
@@ -45,8 +46,7 @@ export class TestComponent implements OnInit {
             name: data.name+" from",
             type: data.type,
             path: data.path,
-            value: data.value,
-            controlIndex: (<FormArray>this.searchFields.controls["fields"]).length
+            value: data.value
           });
 
           (<FormArray>this.searchFields.controls["fields"]).push(fkTo);
@@ -54,14 +54,12 @@ export class TestComponent implements OnInit {
             name: data.name+" to",
             type: data.type,
             path: data.path,
-            value: data.value,
-            controlIndex: (<FormArray>this.searchFields.controls["fields"]).length
+            value: data.value
           });
         }
         else {
           let fk = new FormControl(null, Validators.required);
           this.searchData.push(new SearchingText(data, fk));
-          data.controlIndex = (<FormArray>this.searchFields.controls["fields"]).length;
           (<FormArray>this.searchFields.controls["fields"]).push(fk);
           this.searchingFields.push(data);
         }
@@ -75,10 +73,10 @@ export class TestComponent implements OnInit {
 
 
   async search(){
-    for (let i in this.controls){
-      this.searchingFields[i].value = this.controls[i].value;
-      console.log(this.searchingFields[i].value)
-    }
+    // for (let i in this.controls){
+    //   this.searchingFields[i].value = this.controls[i].value;
+    //   console.log(this.searchingFields[i].value)
+    // }
     const res: string[] = [];
     for (const searchDataKey of this.searchData) {
       res.push(searchDataKey.getSearchingData())
@@ -107,7 +105,8 @@ export class TestComponent implements OnInit {
   deleteField(index:number) {
     //todo при удалении даты удаляется два раза;
     (<FormArray>this.searchFields.controls["fields"]).removeAt(index);
-    this.searchData.splice(this.searchingFields[index].controlIndex, 1);
+    // this.searchData.splice(this.searchingFields[index].controlIndex, 1);
+    this.searchData.splice(index, 1);
     this.searchingFields.splice(index,1);
   }
 }
