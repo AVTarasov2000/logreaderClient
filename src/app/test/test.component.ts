@@ -45,7 +45,8 @@ export class TestComponent implements OnInit {
             name: data.name+" from",
             type: data.type,
             path: data.path,
-            value: data.value
+            value: data.value,
+            controlIndex: (<FormArray>this.searchFields.controls["fields"]).length
           });
 
           (<FormArray>this.searchFields.controls["fields"]).push(fkTo);
@@ -53,12 +54,14 @@ export class TestComponent implements OnInit {
             name: data.name+" to",
             type: data.type,
             path: data.path,
-            value: data.value
+            value: data.value,
+            controlIndex: (<FormArray>this.searchFields.controls["fields"]).length
           });
         }
         else {
           let fk = new FormControl(null, Validators.required);
           this.searchData.push(new SearchingText(data, fk));
+          data.controlIndex = (<FormArray>this.searchFields.controls["fields"]).length;
           (<FormArray>this.searchFields.controls["fields"]).push(fk);
           this.searchingFields.push(data);
         }
@@ -102,7 +105,9 @@ export class TestComponent implements OnInit {
 
   }
   deleteField(index:number) {
+    //todo при удалении даты удаляется два раза;
     (<FormArray>this.searchFields.controls["fields"]).removeAt(index);
+    this.searchData.splice(this.searchingFields[index].controlIndex, 1);
     this.searchingFields.splice(index,1);
   }
 }

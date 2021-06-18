@@ -3,4 +3,5 @@ export interface Message{
   StartTimestamp: string;
   MsgId: string;
   message: string[];
+  path: string;
 }

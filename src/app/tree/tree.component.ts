@@ -30,7 +30,8 @@ export class TreeComponent implements OnInit{
       name: $event.item?.dataItem.text,
       type: $event.item?.dataItem.type,
       path: $event.item?.dataItem.text,
-      value: ""
+      value: "",
+      controlIndex: -1
     });
   }
 }

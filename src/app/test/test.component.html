@@ -8,7 +8,10 @@
       <div class="container-fluid pb-3" *ngFor="let i of messages">
         <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
           <div class="bg-light border rounded-3">
-            <div *ngFor="let line of i.message">
+            <div class="row">
+              <p style="color: blue">{{i.path}}</p>
+            </div>
+            <div *ngFor="let line of i.message" class="row">
               <p class="text-truncate">{{line}}</p><br>
             </div>
           </div>

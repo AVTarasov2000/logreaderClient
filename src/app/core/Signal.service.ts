@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Message} from "./message.interface";
 import {Observable} from "rxjs";
 import {TreeNode} from "./treeNode";
-import {SearchingField} from "./searchingField";
 
 @Injectable()
 export class SignalService{
