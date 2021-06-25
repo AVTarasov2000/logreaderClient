@@ -19,10 +19,21 @@
         <span class="text-primary">Search form</span>
         <span class="badge bg-primary rounded-pill">{{count}}</span>
       </h4>
-      <app-search></app-search>
-      <app-compare-by></app-compare-by>
-      <div class="card p-2">
-        <app-tree></app-tree>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" (click)="chooseSearch()">search</button>
+        <button type="button" class="btn btn-primary" (click)="chooseNone()">none</button>
+        <button type="button" class="btn btn-primary" (click)="chooseCompare()">compare</button>
+      </div>
+      <div *ngIf="searchFlag || compareFlag">
+        <div *ngIf="searchFlag">
+          <app-search></app-search>
+        </div>
+        <div *ngIf="compareFlag">
+          <app-compare-by></app-compare-by>
+        </div>
+        <div class="card p-2">
+          <app-tree></app-tree>
+        </div>
       </div>
     </div>
   </div>

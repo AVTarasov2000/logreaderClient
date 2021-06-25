@@ -18,6 +18,9 @@ export class TestComponent implements OnInit {
 
   subscription = new Subscription();
 
+  searchFlag: boolean = true;
+  compareFlag: boolean = false;
+
   constructor(
     private signal: SignalService,
     private searchService: SearchService
@@ -34,4 +37,18 @@ export class TestComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  chooseSearch() {
+    this.searchFlag = true;
+    this.compareFlag = false;
+  }
+
+  chooseCompare() {
+    this.searchFlag = false;
+    this.compareFlag = true;
+  }
+
+  chooseNone() {
+    this.searchFlag = false;
+    this.compareFlag = false;
+  }
 }
