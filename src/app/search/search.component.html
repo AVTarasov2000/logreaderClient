@@ -1,0 +1,26 @@
+<form [formGroup]="searchFields" (ngSubmit)="search()">
+  <ul class="list-group mb-3" *ngFor="let field of searchData; let i = index">
+    <div formArrayName="fields">
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <form class="p-2">
+          <div class="input-group">
+            <div class="col" >
+              <div *ngFor="let label of searchData[i].getLabels(); let j = index">
+                <div class="row">
+                  <label  class="col-form-label">{{label}}</label>
+                </div>
+                <div class="row">
+                  <input class="form-control" type="{{searchData[i].getType()}}" placeholder="{{label}}" [formControl]="searchData[i].getControls()[i]">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-secondary"  (click)="deleteField(i)">delete</button>
+            </div>
+          </div>
+        </form>
+      </li>
+    </div>
+  </ul>
+  <div class="input-group">
+    <button type="submit" class="btn btn-secondary">Search by all</button>
+  </div>
+</form>

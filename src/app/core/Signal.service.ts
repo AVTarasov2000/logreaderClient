@@ -15,6 +15,7 @@ export class SignalService{
 
   setUrl(url: string){
     return "http://127.0.0.1:5000/"+url;
+    // return window.location.href+url;
   }
   testSignal(): Observable<Message>{
     return this.http.get<Message>(this.setUrl("test"))

@@ -12,6 +12,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { TreeViewModule } from '@progress/kendo-angular-treeview';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchComponent } from './search/search.component';
+import { CompareByComponent } from './compare-by/compare-by.component';
 
 
 
@@ -20,7 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     TestComponent,
-    TreeComponent
+    TreeComponent,
+    SearchComponent,
+    CompareByComponent
   ],
   imports: [
     BrowserModule,
