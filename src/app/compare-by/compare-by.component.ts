@@ -27,7 +27,7 @@ export class CompareByComponent implements OnInit {
     this.signal.compareByField(this.file1.value, this.file2.value, this.field.value).subscribe(
       value => {
         console.log("aaaaaaaaa")
-        this.searchService.addMessages({messages: value['result'],  count: value['count']})
+        this.searchService.setMessages({messages: value['result'],  count: value['count']})
       }
     )
   }

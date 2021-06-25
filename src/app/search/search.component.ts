@@ -71,7 +71,7 @@ export class SearchComponent implements OnInit {
       res.push(searchDataKey.getSearchingData())
     }
     this.signal.searchByQueries(res).subscribe(value => {
-      this.searchService.addMessages({messages: value['result'],  count: value['count']})
+      this.searchService.setMessages({messages: value['result'],  count: value['count']})
     });
   }
 

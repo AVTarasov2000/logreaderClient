@@ -51,4 +51,9 @@ export class TestComponent implements OnInit {
     this.searchFlag = false;
     this.compareFlag = false;
   }
+
+  deleteIndex() {
+    this.signal.deleteIndex();
+    this.searchService.setMessages({messages:[], count:0})
+  }
 }

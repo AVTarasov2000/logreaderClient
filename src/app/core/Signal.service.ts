@@ -34,6 +34,10 @@ export class SignalService{
   compareByField(file1: string, file2: string, field: string): Observable<any> {
     return this.http.post(this.setUrl("/search/difference"), {file1, file2, field})
   }
+
+  deleteIndex() {
+    this.http.get(this.setUrl("/index/delete")).subscribe(value => {});
+  }
 }
 
 

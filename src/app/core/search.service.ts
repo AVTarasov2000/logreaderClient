@@ -19,7 +19,7 @@ export class SearchService{
     this.searchingFields.next(sf)
   }
 
-  addMessages(sf: SearchResult): void{
+  setMessages(sf: SearchResult): void{
     this.messages.next(sf)
   }
 
