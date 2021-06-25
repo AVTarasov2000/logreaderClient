@@ -31,6 +31,9 @@ export class SignalService{
   get_tree(): Observable<TreeNode> {
     return this.http.get<TreeNode>(this.setUrl("getTree"))
   }
+  compareByField(file1: string, file2: string, field: string): Observable<any> {
+    return this.http.post(this.setUrl("/search/difference"), {file1, file2, field})
+  }
 }
 
 

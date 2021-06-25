@@ -12,12 +12,19 @@ export class SearchService{
   private messages = new Subject<SearchResult>();
   public messages$ = this.messages.asObservable();
 
+  private field = new Subject<string>();
+  public field$ = this.field.asObservable();
+
   addSearchingField(sf: SearchingField): void{
     this.searchingFields.next(sf)
   }
 
   addMessages(sf: SearchResult): void{
     this.messages.next(sf)
+  }
+
+  setField(field: string){
+    this.field.next(field)
   }
 
 }

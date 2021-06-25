@@ -1,0 +1,23 @@
+<div class="list-group-item d-flex justify-content-between lh-sm">
+  <form class="p-2">
+    <div class="input-group">
+      <div class="col" >
+        <div class="row">
+          <label for="file1" class="col-form-label">file1</label>
+          <input id = "file1" class="form-control" type="text" placeholder="file1" [formControl]="file1">
+        </div>
+        <div class="row">
+          <label for="file2" class="col-form-label">file2</label>
+          <input id = "file2" class="form-control" type="text" placeholder="file2" [formControl]="file2">
+        </div>
+        <div class="row">
+          <label for="field" class="col-form-label">field</label>
+          <input id = "field" class="form-control" type="text" placeholder="field" [formControl]="field">
+        </div>
+        <div class="row">
+          <button type="submit" class="btn btn-secondary" (click)="compare()">compare dates</button>
+        </div>
+        </div>
+    </div>
+  </form>
+</div>

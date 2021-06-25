@@ -32,5 +32,6 @@ export class TreeComponent implements OnInit{
       path: $event.item?.dataItem.path,
       value: ""
     });
+    this.search.setField( $event.item?.dataItem.path);
   }
 }
