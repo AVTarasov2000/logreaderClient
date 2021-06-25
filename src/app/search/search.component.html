@@ -7,13 +7,15 @@
             <div class="col" >
               <div *ngFor="let label of searchData[i].getLabels(); let j = index">
                 <div class="row">
-                  <label  class="col-form-label">{{label}}</label>
-                </div>
-                <div class="row">
-                  <input class="form-control" type="{{searchData[i].getType()}}" placeholder="{{label}}" [formControl]="searchData[i].getControls()[i]">
+                  <label for="{{j}}" class="col-form-label">{{label}}</label>
+<!--                </div>-->
+<!--                <div class="row">-->
+                  <input id="{{j}}" class="form-control" type="{{searchData[i].getType()}}" placeholder="{{label}}" [formControl]="searchData[i].getControls()[i]">
                 </div>
               </div>
-              <button type="submit" class="btn btn-secondary"  (click)="deleteField(i)">delete</button>
+              <div class="row">
+                <button type="submit" class="btn btn-secondary"  (click)="deleteField(i)">delete</button>
+              </div>
             </div>
           </div>
         </form>
